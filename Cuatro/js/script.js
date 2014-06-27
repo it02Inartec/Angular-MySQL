@@ -12,8 +12,8 @@ myAppModule.directive('loged', function(){
 });
  
 // Creamos un controlador llamado loginCtrl
-function loginCtrl($scope, $http) {
-    //al momento que le den click al ng-click doLogin() ejecutamos la funcion
+function loginCtrl($scope, $http) {     
+    //al mo mento que le den click al ng-click doLogin() ejecutamos la funcion
     $scope.doLogin = function() {
         /* 
             $http es similar a AJAX de jQuery con una funcionalidad muy similar
@@ -21,37 +21,35 @@ function loginCtrl($scope, $http) {
             destino, datos a enviar etc.  
         */
         $http({
-            
-            //usaremos el metodo POST para enviar los datos
-            method: 'POST', 
-            //seleccionamos a  que URL llegara la informacion
-            url: 'php/formulario.php',
-            //codificamos el contenido
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            //esta es la informacion que vamos a mandar
-            data: { 'usuario':$scope.usuario, 
-                    'contrasena':$scope.contrasena 
-                  },
-        }).
-        // si la peticion ajax se realizo con exito se ejecuta success
-        success(function(data, status) {
-            debugger;
-            $scope.data = data;
-            if(data == 'FALSE'){
-                $scope.aviso = 'Usuario o contraseña invalidos';
-            }
-            else {
-                toogleDiv();
-            }
+                //usaremos el metodo POST para enviar los datos
+                method: 'POST', 
+                //seleccionamos a  que URL llegara la informacion
+                url: 'php/formulario.php',
+                //codificamos el contenido
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                //esta es la informacion que vamos a mandar
+                data: { 
+                        'usuario': $scope.usuario, 
+                        'contrasena': $scope.contrasena 
+                     },
+            }).
+            // si la peticion ajax se realizo con exito se ejecuta success
+            success(function(data, status) {
+                debugger;
+                $scope.data = data;
+                if(data == 'FALSE'){
+                    $scope.aviso = 'Usuario o contraseña invalidos';
+                } else {
+                    toogleDiv();
+                }
  
-        }).
-        //si la peticion ajax NO fue exitosa se ejecuta error
-        error(function(data, status) {
-            debugger;
-            $scope.data = data || "FALSE";
-            $scope.status = status;
-            $scope.aviso = 'Ha pasado algo inesperado';
-        });
+            }).
+            //si la peticion ajax NO fue exitosa se ejecuta error
+            error(function(data, status) {
+                $scope.data = data || "FALSE";
+                $scope.status = status;  
+                $scope.aviso = 'Ha pasado algo inesperado';
+            });
     };
 }
 /* Con esta funcion escondemos el form de login y mostramos el saludo de bienvenida */
