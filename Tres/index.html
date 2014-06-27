@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app='AppRegister'>
+<head>
+<meta charset="utf-8" />
+<title>Inicio</title>
+    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+</head>
+<body>
+    <div  class="container">
+        <div class="span5" ng-controller="TareasControlador"> 
+            <form>
+                <label>Usuario</label>
+                <input type="text" ng-model="usuario">
+                <br />
+                <label>Contraseña</label>
+                <input type="password" ng-model="contrasena">
+                <br />
+                <input type="submit" value="entrar" ng-click="NuevoUsuario()" class="btn btn-primary">
+            </form>
+        </div>
+   </div>
+</body>
+</html>
