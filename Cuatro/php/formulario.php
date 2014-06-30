@@ -43,8 +43,12 @@
 
     if (!empty($usuario2) && !empty($contrasena2) ){
         echo $_SESSION['usuario']    = $usuario2;
-        echo $_SESSION['contrasena'] = $contrasena2;
-    } else {
+        $_SESSION['contrasena'] = $contrasena2;
+    }
+    elseif (empty($usuario2) && empty($contrasena2)) {
+        echo "";
+     }
+     else {
         echo "FALSE";
     }
     

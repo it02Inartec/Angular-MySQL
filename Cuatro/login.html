@@ -7,16 +7,16 @@
 <title>Buscador en AngularJS</title>
     <!-- Incluimos librerias como bootstrap.css-->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="css/taskman.css"/>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700" rel="stylesheet" type="text/css">
     <!-- Agregamos primero jQuery antes que angular es una buena practica -->
     <script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
-    <!--<script src="js/jquery-1.11.0.min.js"></script>
-    <script src="js/angular.js"></script>-->
     <script src="js/script.js"></script>
 </head>
 <body>
  
-    <div  class="container">
+    <div class="container">
         <hr>
         <div class="span5" ng-controller="loginCtrl"> 
             <form>
@@ -30,8 +30,11 @@
                 <div>{{aviso}}</div>
             </form>
         </div>
-        <!-- creamos una directiva  llamada Loged-->
-        <loged ng-hide="true"></loged>
+        <div class="span1" ng-hide="true">
+            <b>Bienvenido</b>
+            <br>Usuario: {{aviso}}
+            <div ng-include src="'partials/task.html'"></div>
+        </div>
    </div>
  </body>
 </html>

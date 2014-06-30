@@ -1,25 +1,14 @@
 // Llamamos al modulo
 var myAppModule = angular.module('myApp', []);
- 
-//Creamos la directiva loged
-myAppModule.directive('loged', function(){
-    return{
-        restrict: 'E',
-        template:   "<div>"+
-                        "<b>Bienvenido</b><br>"+
-                    "</div>",
-        }
-});
- 
+
 // Creamos un controlador llamado loginCtrl
-function loginCtrl($scope, $http) {     
+function loginCtrl($scope, $http) {
+
     //al mo mento que le den click al ng-click doLogin() ejecutamos la funcion
     $scope.doLogin = function() {
-        /* 
-            $http es similar a AJAX de jQuery con una funcionalidad muy similar
-            pero lo que si son iguales es que son llamadas AJAX, elijes metodo,
-            destino, datos a enviar etc.  
-        */
+        // $http es similar a AJAX de jQuery con una funcionalidad muy similar
+        // pero lo que si son iguales es que son llamadas AJAX, elijes metodo,
+        // destino, datos a enviar etc.  
         $http({
                 //usaremos el metodo POST para enviar los datos
                 method: 'POST', 
@@ -35,11 +24,11 @@ function loginCtrl($scope, $http) {
             }).
             // si la peticion ajax se realizo con exito se ejecuta success
             success(function(data, status) {
-                debugger;
                 $scope.data = data;
-                if(data == 'FALSE'){
-                    $scope.aviso = 'Usuario o contraseña invalidos';
-                } else {
+                if(data == 'FALSE' || data == ''){
+                    $scope.aviso = 'Usuario y contraseña invalidos';
+                }
+                else {
                     toogleDiv();
                 }
  
@@ -52,8 +41,43 @@ function loginCtrl($scope, $http) {
             });
     };
 }
-/* Con esta funcion escondemos el form de login y mostramos el saludo de bienvenida */
+
+// Con esta funcion escondemos el form de login y mostramos el saludo de bienvenida
 function toogleDiv(){
     $(".span5").slideUp('fast');
-    $("loged").slideDown('slow').attr('ng-hide','false');
+    $(".span1").slideDown('slow').attr('ng-hide','false');
 }
+
+myAppModule.controller('userController', function($scope, $http) {
+  // Cargar todas las tareas disponibles en BD
+  getTask();
+
+  function getTask(){
+    $http.post("ajax/getTask.php").success(function(data){
+      debugger;
+      $scope.tasks = data;
+    });
+  };
+
+  $scope.addTask = function (task) {
+    $http.post("ajax/addTask.php?usuario="+task).success(function(data){
+        getTask();
+        $scope.taskInput = "";
+      });
+  };
+  
+  $scope.deleteTask = function (task) {
+    if(confirm("Esta seguro que desea eliminar esta linea?")){
+    $http.post("ajax/deleteTask.php?usuarioID="+task).success(function(data){
+        getTask();
+      });
+    }
+  };
+
+  $scope.toggleStatus = function(item, status, task) {
+    if(status=='2'){status='0';}else{status='2';}
+      $http.post("ajax/updateTask.php?taskID="+item+"&status="+status).success(function(data){
+        getTask();
+      });
+  };
+});

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es" ng-app='AppRegister'>
+<head>
+    <meta charset="utf-8" />
+    <title>Formulario de Registro</title>
+    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+</head>
+<body>
+    <div  class="container">
+        <div class="span5" ng-controller="TareasControlador"> 
+            <form>
+                <br /><br />
+                <label class="checkbox" ng-repeat="tarea in tareas">{{tarea}}</label>
+            </form>
+        </div>
+   </div>
+</body>
+</html>
